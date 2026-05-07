@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RACINES — Le podcast des entrepreneurs qui ont vraiment construit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#080808;--bg:#0e0e0e;--bg2:#151515;--bg3:#1e1e1e;
+  --ink:#f0ede6;--ink2:#8a8480;--ink3:#4a4744;
+  --red:#e8352a;--red2:rgba(232,53,42,.12);--redb:rgba(232,53,42,.3);
+  --gold:#d4a030;--gold2:rgba(212,160,48,.1);
+  --white:#ffffff;
+  --mono:'DM Mono',monospace;--display:'Syne',sans-serif;--sans:'Plus Jakarta Sans',sans-serif;
+  --border:rgba(240,237,230,.07);--border2:rgba(240,237,230,.13);
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(8,8,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.04em;color:var(--red)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-size:12px;color:var(--ink2);text-decoration:none;letter-spacing:.06em;transition:color .2s;font-family:var(--mono)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--red);color:#fff;padding:.55rem 1.3rem;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;font-family:var(--mono);letter-spacing:.06em;transition:all .2s}
+.nav-cta:hover{background:#c02820;transform:translateY(-1px)}
+.nav-back{font-size:11px;color:var(--ink3);text-decoration:none;font-family:var(--mono);border:1px solid var(--border2);padding:.4rem .9rem;border-radius:6px;transition:all .2s}
+.nav-back:hover{color:var(--ink);border-color:var(--border2)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:6rem 5vw 4rem;position:relative;overflow:hidden}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;opacity:.4}
+.hero-line{position:absolute;top:0;left:5vw;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--red),transparent);opacity:.3}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;position:relative;z-index:1}
+.hero-ep-num{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.2em;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.hero-ep-num::before{content:'';width:32px;height:1px;background:var(--red)}
+.hero h1{font-family:var(--display);font-size:clamp(3rem,6vw,5.5rem);font-weight:800;letter-spacing:-.05em;line-height:.96;margin-bottom:1.5rem}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero-sub{font-size:16px;color:var(--ink2);line-height:1.8;margin-bottom:2.5rem;max-width:420px}
+.hero-sub strong{color:var(--ink)}
+.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-main{background:var(--red);color:#fff;padding:.9rem 2rem;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-main:hover{background:#c02820;transform:translateY(-2px);box-shadow:0 12px 36px rgba(232,53,42,.3)}
+.btn-ghost{border:1px solid var(--border2);color:var(--ink2);padding:.9rem 1.75rem;border-radius:8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:var(--redb);color:var(--red)}
+.hero-platforms{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.hero-platforms span{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.1em}
+.platform-pill{display:inline-flex;align-items:center;gap:.4rem;background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:.35rem .85rem;font-family:var(--mono);font-size:10px;color:var(--ink2);text-decoration:none;transition:all .2s}
+.platform-pill:hover{border-color:var(--redb);color:var(--red)}
+
+/* FEATURED EP CARD */
+.ep-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;overflow:hidden}
+.ep-card-thumb{height:220px;background:linear-gradient(135deg,#1a0808,#2d1010,#1a0808);display:flex;align-items:center;justify-content:center;font-size:5rem;position:relative}
+.ep-card-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(21,21,21,.9))}
+.ep-num-big{position:absolute;right:1.5rem;bottom:1rem;font-family:var(--display);font-size:5rem;font-weight:800;color:rgba(232,53,42,.15);letter-spacing:-.06em;z-index:1}
+.ep-card-body{padding:1.5rem}
+.ep-tag{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.16em;margin-bottom:.5rem}
+.ep-card-name{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:.35rem}
+.ep-card-guest{font-size:13px;color:var(--ink2);margin-bottom:1.25rem}
+.ep-card-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.ep-card-tag{background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:.25rem .7rem;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:.06em}
+.ep-play{display:flex;align-items:center;gap:.75rem}
+.ep-play-btn{width:42px;height:42px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;border:none;flex-shrink:0}
+.ep-play-btn:hover{background:#c02820;transform:scale(1.08)}
+.ep-play-btn svg{width:14px;height:14px;fill:#fff;margin-left:2px}
+.ep-duration{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+
+/* TICKER */
+.ticker-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg);padding:.85rem 0;overflow:hidden}
+.ticker-inner{display:flex;gap:3rem;animation:ticker 20s linear infinite;white-space:nowrap}
+.ticker-item{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.1em;display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--red)}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* STRUCTURE */
+.section{padding:6rem 5vw;max-width:1200px;margin:0 auto}
+.divider{height:1px;background:var(--border);margin:0 5vw}
+.sec-tag{font-family:var(--mono);font-size:10px;color:var(--red);letter-spacing:.16em;margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+.sec-tag::before{content:'';width:24px;height:1px;background:var(--red)}
+.sec-title{font-family:var(--display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:1rem}
+.sec-sub{font-size:15px;color:var(--ink2);line-height:1.75;max-width:520px;margin-bottom:3rem}
+
+/* STRUCTURE ÉPISODE */
+.structure-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.struct-block{background:var(--bg2);padding:2rem 1.5rem;position:relative;overflow:hidden;transition:background .2s}
+.struct-block:hover{background:var(--bg3)}
+.struct-block::before{content:attr(data-n);position:absolute;right:.5rem;bottom:-.5rem;font-family:var(--display);font-size:5rem;font-weight:800;color:rgba(232,53,42,.05);letter-spacing:-.06em}
+.struct-ico{font-size:28px;margin-bottom:1rem}
+.struct-name{font-family:var(--display);font-size:17px;font-weight:800;color:var(--red);margin-bottom:.5rem}
+.struct-desc{font-size:12.5px;color:var(--ink2);line-height:1.65}
+
+/* EPISODES LIST */
+.eps-list{display:flex;flex-direction:column;gap:.75rem}
+.ep-row{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.5rem;transition:all .22s;cursor:pointer}
+.ep-row:hover{border-color:var(--redb);background:var(--bg3);transform:translateX(4px)}
+.ep-row-num{font-family:var(--display);font-size:2rem;font-weight:800;color:rgba(232,53,42,.2);min-width:3rem;letter-spacing:-.06em}
+.ep-row-thumb{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#1a0808,#3d1010);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.ep-row-body{flex:1}
+.ep-row-title{font-family:var(--display);font-size:16px;font-weight:800;margin-bottom:.25rem}
+.ep-row-guest{font-size:12.5px;color:var(--ink2)}
+.ep-row-meta{display:flex;gap:1rem;align-items:center}
+.ep-row-dur{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.ep-row-tag{background:var(--red2);border:1px solid var(--redb);border-radius:100px;padding:.2rem .65rem;font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.06em}
+.ep-play-sm{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.ep-row:hover .ep-play-sm{background:var(--red);border-color:var(--red)}
+.ep-play-sm svg{width:12px;height:12px;fill:var(--ink2);margin-left:2px;transition:fill .2s}
+.ep-row:hover .ep-play-sm svg{fill:#fff}
+
+/* ACTION STEPS */
+.action-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:2.5rem;position:relative;overflow:hidden}
+.action-box::before{content:'ACTION';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:8rem;font-weight:800;color:rgba(232,53,42,.04);letter-spacing:-.06em;pointer-events:none}
+.action-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.action-ico{width:48px;height:48px;border-radius:12px;background:var(--red2);border:1px solid var(--redb);display:flex;align-items:center;justify-content:center;font-size:22px}
+.action-title{font-family:var(--display);font-size:18px;font-weight:800}
+.action-sub{font-size:13px;color:var(--ink2)}
+.steps-list{display:flex;flex-direction:column;gap:.6rem}
+.action-step{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.1rem;display:flex;align-items:flex-start;gap:.85rem;transition:border-color .2s}
+.action-step:hover{border-color:var(--redb)}
+.step-level{font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:.2rem .6rem;border-radius:100px;flex-shrink:0;margin-top:.15rem}
+.step-level.debutant{background:rgba(61,214,140,.1);border:1px solid rgba(61,214,140,.25);color:#3dd68c}
+.step-level.avance{background:var(--red2);border:1px solid var(--redb);color:var(--red)}
+.step-txt{font-size:13px;color:var(--ink2);line-height:1.5}
+.step-txt strong{color:var(--ink)}
+
+/* PHILOSOPHY */
+.philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.philo-quote{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:var(--ink);position:relative;padding-left:2rem}
+.philo-quote::before{content:'"';position:absolute;left:-1rem;top:-.5rem;font-size:6rem;color:rgba(232,53,42,.15);font-family:var(--display);line-height:1}
+.philo-quote em{font-style:normal;color:var(--red)}
+.philo-body{display:flex;flex-direction:column;gap:.75rem}
+.philo-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:border-color .2s}
+.philo-card:hover{border-color:var(--redb)}
+.philo-card h4{font-family:var(--display);font-size:15px;font-weight:800;margin-bottom:.4rem}
+.philo-card p{font-size:12.5px;color:var(--ink2);line-height:1.6}
+
+/* HOST */
+.host-section{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:3rem;display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+.host-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--red),#8a1010);display:flex;align-items:center;justify-content:center;font-size:3rem;flex-shrink:0;border:3px solid var(--redb)}
+.host-tag{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.16em;margin-bottom:.5rem}
+.host-name{font-family:var(--display);font-size:2rem;font-weight:800;letter-spacing:-.04em;margin-bottom:.5rem}
+.host-bio{font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1.25rem}
+.host-pills{display:flex;gap:.5rem;flex-wrap:wrap}
+.host-pill{background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:.3rem .85rem;font-family:var(--mono);font-size:10px;color:var(--ink2)}
+
+/* CTA */
+.cta-section{background:var(--red);padding:6rem 5vw;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'RACINES';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--display);font-size:22vw;font-weight:800;color:rgba(0,0,0,.1);white-space:nowrap;letter-spacing:-.06em;pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-title{font-family:var(--display);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;letter-spacing:-.05em;color:#fff;margin-bottom:1rem;line-height:1.05}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:2rem;line-height:1.75}
+.btn-white{background:#fff;color:var(--red);padding:1.1rem 2.5rem;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:800;letter-spacing:.08em;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+
+footer{background:var(--bg);padding:2.5rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--border)}
+.footer-logo{font-family:var(--display);font-size:17px;font-weight:800;color:var(--red)}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-family:var(--mono);font-size:11px;color:var(--ink3);text-decoration:none;letter-spacing:.06em;transition:color .2s}
+.footer-links a:hover{color:var(--ink)}
+
+@media(max-width:900px){
+  .hero-inner,.philo-grid,.host-section{grid-template-columns:1fr;gap:2.5rem}
+  .structure-grid{grid-template-columns:1fr 1fr}
+  nav .nav-links a:not(.nav-cta):not(.nav-back){display:none}
+}
+@media(max-width:600px){
+  .structure-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">RACINES</span>
+  <div class="nav-links">
+    <a href="#episodes">Épisodes</a>
+    <a href="#structure">Format</a>
+    <a href="#host">L'animateur</a>
+    <a href="reda_site_merged.html" class="nav-back">← Portfolio</a>
+    <a href="#" class="nav-cta">S'abonner →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-ep-num">PODCAST · SAISON 1 EN PRÉPARATION</div>
+      <h1>Comprendre<br>le Maroc de<br><em>demain.</em></h1>
+      <p class="hero-sub">Chaque entrepreneur a une <strong>équation de réussite</strong> unique. RACINES l'excave — et te donne les outils pour construire la tienne. Pas de théorie. <strong>3–4 actions concrètes</strong> à chaque épisode.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-main">🎙 S'abonner gratuitement</a>
+        <a href="#episodes" class="btn-ghost">Voir les épisodes ↓</a>
+      </div>
+      <div class="hero-platforms">
+        <span>DISPONIBLE SUR</span>
+        <a href="#" class="platform-pill">🎵 Spotify</a>
+        <a href="#" class="platform-pill">🎙 Apple Podcasts</a>
+        <a href="#" class="platform-pill">▶️ YouTube</a>
+      </div>
+    </div>
+    <div>
+      <div class="ep-card">
+        <div class="ep-card-thumb">
+          🎙️
+          <div class="ep-num-big">01</div>
+        </div>
+        <div class="ep-card-body">
+          <div class="ep-tag">ÉPISODE PILOTE · BIENTÔT</div>
+          <div class="ep-card-name">De rien à tout — l'équation du founder marocain</div>
+          <div class="ep-card-guest">Invité TBD · Entrepreneur · Casablanca</div>
+          <div class="ep-card-tags">
+            <span class="ep-card-tag">ORIGINES</span>
+            <span class="ep-card-tag">DÉCLIC</span>
+            <span class="ep-card-tag">ÉQUATION</span>
+            <span class="ep-card-tag">ACTION STEPS</span>
+          </div>
+          <div class="ep-play">
+            <button class="ep-play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="ep-duration">~90 min · Longform</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>ORIGINE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>DÉCLIC</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>ÉQUATION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>3–4 ACTION STEPS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>LONGFORM · PROFOND · ACTIONNABLE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>RACINES PODCAST</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SAISON 1</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>ORIGINE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>DÉCLIC</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>ÉQUATION</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>3–4 ACTION STEPS</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>LONGFORM · PROFOND · ACTIONNABLE</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>RACINES PODCAST</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>SAISON 1</span>
+  </div>
+</div>
+
+<!-- STRUCTURE ÉPISODE -->
+<div class="divider"></div>
+<div class="section" id="structure">
+  <div class="sec-tag">LE FORMAT</div>
+  <h2 class="sec-title">Une structure.<br>4 temps. Toujours.</h2>
+  <p class="sec-sub">Chaque épisode suit la même architecture pour extraire le maximum de valeur de chaque invité — et te donner ce que tu peux appliquer cette semaine.</p>
+  <div class="structure-grid">
+    <div class="struct-block" data-n="01">
+      <div class="struct-ico">🧬</div>
+      <div class="struct-name">ORIGINE</div>
+      <div class="struct-desc">D'où tu viens vraiment. La famille, le quartier, les contraintes initiales. Ce qui t'a forgé avant même de t'en rendre compte.</div>
+    </div>
+    <div class="struct-block" data-n="02">
+      <div class="struct-ico">⚡</div>
+      <div class="struct-name">DÉCLIC</div>
+      <div class="struct-desc">Le moment exact qui a tout changé. La décision, la rencontre, l'échec ou la révélation qui a basculé ta trajectoire.</div>
+    </div>
+    <div class="struct-block" data-n="03">
+      <div class="struct-ico">🧮</div>
+      <div class="struct-name">ÉQUATION</div>
+      <div class="struct-desc">La formule unique de leur succès. Ce que font tous les invités de la saison — extraire leur équation commune.</div>
+    </div>
+    <div class="struct-block" data-n="04">
+      <div class="struct-ico">🎯</div>
+      <div class="struct-name">3–4 ACTION STEPS</div>
+      <div class="struct-desc">Actions concrètes à appliquer cette semaine. Calibrées pour débutants complets comme pour ceux déjà en route.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<div class="divider"></div>
+<div class="section">
+  <div class="philo-grid">
+    <div class="philo-quote">
+      Les podcasts, c'est souvent de la <em>masturbation intellectuelle</em> si tu ne passes pas à l'action.
+    </div>
+    <div class="philo-body">
+      <div class="philo-card">
+        <h4>🧠 Le problème des podcasts classiques</h4>
+        <p>Tu écoutes, tu comprends mieux le business en général, tu entends des choses que tu vivras peut-être un jour. Mais ça reste facile — YouTube + un épisode qui te plaît, c'est accessible à tout le monde. La compréhension sans action, c'est du confort.</p>
+      </div>
+      <div class="philo-card">
+        <h4>🎯 La solution RACINES</h4>
+        <p>Chaque fin d'épisode = 3 à 4 projets concrets à appliquer. Calibrés pour les débutants complets ET pour ceux qui sont déjà à un certain niveau. L'épisode ne se termine pas avant que tu saches quoi faire demain matin.</p>
+      </div>
+      <div class="philo-card">
+        <h4>🧮 L'objectif saison 1</h4>
+        <p>Interviewer suffisamment de builders marocains en une saison pour extraire une équation de réussite commune. Pas des théories — des patterns réels, testés, vécus.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EPISODES -->
+<div class="divider"></div>
+<div class="section" id="episodes">
+  <div class="sec-tag">SAISON 1</div>
+  <h2 class="sec-title">Les épisodes<br>à venir.</h2>
+  <p class="sec-sub">La saison 1 est en cours de production. Voici un aperçu des profils d'invités ciblés.</p>
+  <div class="eps-list">
+    <div class="ep-row">
+      <div class="ep-row-num">01</div>
+      <div class="ep-row-thumb">🏗️</div>
+      <div class="ep-row-body">
+        <div class="ep-row-title">Le founder bootstrappé — de 0 à son premier million</div>
+        <div class="ep-row-guest">Entrepreneur · Casablanca · Invité TBD</div>
+      </div>
+      <div class="ep-row-meta">
+        <span class="ep-row-tag">BIENTÔT</span>
+        <span class="ep-row-dur">~90 min</span>
+      </div>
+      <div class="ep-play-sm"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div class="ep-row">
+      <div class="ep-row-num">02</div>
+      <div class="ep-row-thumb">🌍</div>
+      <div class="ep-row-body">
+        <div class="ep-row-title">Le retour au Maroc — quitter la France pour construire ici</div>
+        <div class="ep-row-guest">Diaspora · MRE · Invité TBD</div>
+      </div>
+      <div class="ep-row-meta">
+        <span class="ep-row-tag">BIENTÔT</span>
+        <span class="ep-row-dur">~90 min</span>
+      </div>
+      <div class="ep-play-sm"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div class="ep-row">
+      <div class="ep-row-num">03</div>
+      <div class="ep-row-thumb">📱</div>
+      <div class="ep-row-body">
+        <div class="ep-row-title">La startup tech marocaine — lever des fonds ou bootstrapper ?</div>
+        <div class="ep-row-guest">Tech founder · Rabat / Casa · Invité TBD</div>
+      </div>
+      <div class="ep-row-meta">
+        <span class="ep-row-tag">BIENTÔT</span>
+        <span class="ep-row-dur">~90 min</span>
+      </div>
+      <div class="ep-play-sm"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div class="ep-row">
+      <div class="ep-row-num">04</div>
+      <div class="ep-row-thumb">🏪</div>
+      <div class="ep-row-body">
+        <div class="ep-row-title">Le commerce traditionnel réinventé — l'artisan qui scale</div>
+        <div class="ep-row-guest">Entrepreneur traditionnel · Marrakech · Invité TBD</div>
+      </div>
+      <div class="ep-row-meta">
+        <span class="ep-row-tag">BIENTÔT</span>
+        <span class="ep-row-dur">~90 min</span>
+      </div>
+      <div class="ep-play-sm"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION STEPS EXAMPLE -->
+<div class="divider"></div>
+<div class="section">
+  <div class="sec-tag">EXEMPLE D'ACTION STEPS</div>
+  <h2 class="sec-title">Ce que tu repars<br>avec chaque épisode.</h2>
+  <p class="sec-sub">Exemple d'action steps de fin d'épisode — calibrés pour deux niveaux.</p>
+  <div class="action-box">
+    <div class="action-header">
+      <div class="action-ico">🎯</div>
+      <div>
+        <div class="action-title">Épisode 01 — Action Steps</div>
+        <div class="action-sub">À appliquer dans les 7 prochains jours</div>
+      </div>
+    </div>
+    <div class="steps-list">
+      <div class="action-step">
+        <span class="step-level debutant">DÉBUTANT</span>
+        <div class="step-txt"><strong>Identifie ton "déclic"</strong> — écris en 200 mots le moment exact où tu as décidé d'entreprendre. Si t'as pas encore ce moment, crée-le : contacte 1 entrepreneur cette semaine et pose-lui cette question.</div>
+      </div>
+      <div class="action-step">
+        <span class="step-level debutant">DÉBUTANT</span>
+        <div class="step-txt"><strong>Cartographie tes contraintes</strong> — liste les 3 vrais obstacles qui t'empêchent d'avancer. Pas les excuses — les vrais blocages. L'invité de cet épisode avait les mêmes. Comment les a-t-il contournés ?</div>
+      </div>
+      <div class="action-step">
+        <span class="step-level avance">AVANCÉ</span>
+        <div class="step-txt"><strong>Applique l'équation de l'invité</strong> à ton projet actuel — prends ses 3 principes clés et identifie lequel tu n'appliques pas encore. Fixe une deadline de 30 jours pour l'intégrer.</div>
+      </div>
+      <div class="action-step">
+        <span class="step-level avance">AVANCÉ</span>
+        <div class="step-txt"><strong>Trouve ton propre invité RACINES</strong> — quelqu'un dans ton réseau qui a 5 ans d'avance sur toi. Envoie-lui un message cette semaine. Pose-lui la question de l'Origine.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOST -->
+<div class="divider"></div>
+<div class="section" id="host">
+  <div class="sec-tag">L'ANIMATEUR</div>
+  <h2 class="sec-title">Qui est derrière<br>le micro ?</h2>
+  <div class="host-section">
+    <div class="host-avatar">🎙️</div>
+    <div>
+      <div class="host-tag">FONDATEUR · ANIMATEUR</div>
+      <div class="host-name">Mohamed Reda Hmamouchi</div>
+      <div class="host-bio">Étudiant en PCSI à Reims, entrepreneur marocain en France. Je construis des startups (VIANO, YAJORA), une agence web (WebCraft30), et un système de productivité (Infopreneur OS) — en parallèle des intégrales et des DS.<br><br>RACINES est né d'une obsession : comprendre l'équation de ceux qui ont vraiment construit quelque chose au Maroc. Pas pour les admirer — pour décoder leur méthode et la rendre applicable à tous.</div>
+      <div class="host-pills">
+        <span class="host-pill">PCSI · Reims</span>
+        <span class="host-pill">Entrepreneur 🇲🇦</span>
+        <span class="host-pill">VIANO · YAJORA</span>
+        <span class="host-pill">WebCraft30</span>
+        <span class="host-pill">Never Arrived</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.16em;margin-bottom:.75rem">SAISON 1 · 2025</div>
+    <h2 class="cta-title">Sois le premier<br>à l'écouter.</h2>
+    <p class="cta-sub">La saison 1 est en production. Abonne-toi maintenant et reçois une notification dès la sortie du premier épisode.</p>
+    <a href="#" class="btn-white">🎙 S'abonner gratuitement →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">RACINES</span>
+  <div class="footer-links">
+    <a href="#">Spotify</a>
+    <a href="#">Apple Podcasts</a>
+    <a href="#">YouTube</a>
+    <a href="reda_site_merged.html">← Portfolio MRH</a>
+  </div>
+</footer>
+
+</body>
+</html>
